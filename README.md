@@ -44,19 +44,19 @@ http://127.0.0.1:5000
 ## Screenshots
 
 Home Page  
-![Home Page](./screenshots/home.png)
+![Home Page](https://github.com/jyotisoni4588-021/partify-mip/blob/dffba6f9e221a3df28b29856358918b53bc82818/screenshots/home.png)
 
 Browse Jobs  
-![Browse Jobs](./screenshots/browse_jobs.png)
+![Browse Jobs]()
 
 Job Details  
-![Job Details](./screenshots/job_details.png)
+![Job Details]()
 
 Post Job  
-![Post Job](./screenshots/post_job.png)
+![Post Job]()
 
 Login Page  
-![Login Page](./screenshots/login.png)
+![Login Page]()
 
 
 
