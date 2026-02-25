@@ -47,16 +47,15 @@ Home Page
 ![Home Page](https://github.com/jyotisoni4588-021/partify-mip/blob/dffba6f9e221a3df28b29856358918b53bc82818/screenshots/home.png)
 
 Browse Jobs  
-![Browse Jobs]()
-
+![Browse Jobs](https://github.com/jyotisoni4588-021/partify-mip/blob/353683de6b74936a5788fe451d88fdf0ae698d8e/screenshots/browse_jobs.png)                                                                                      
 Job Details  
-![Job Details]()
+![Job Details](https://github.com/jyotisoni4588-021/partify-mip/blob/353683de6b74936a5788fe451d88fdf0ae698d8e/screenshots/job_details.png)
 
 Post Job  
-![Post Job]()
+![Post Job](https://github.com/jyotisoni4588-021/partify-mip/blob/353683de6b74936a5788fe451d88fdf0ae698d8e/screenshots/post_job.png)
 
 Login Page  
-![Login Page]()
+![Login Page](https://github.com/jyotisoni4588-021/partify-mip/blob/353683de6b74936a5788fe451d88fdf0ae698d8e/screenshots/login.png)
 
 
 
