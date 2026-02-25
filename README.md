@@ -59,7 +59,12 @@ Post Job
 Login Page  
 ![Login Page](screenshots/login.png)
 
----
+
+
+Live demo:
+https://partify-mip.onrender.com
+
+
 
 ## Project Information
 - Project Type: Minor Project (MIP)
