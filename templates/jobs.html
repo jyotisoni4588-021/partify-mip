@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jobs-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+    <h2>Available Jobs</h2>
+
+    {% if current_user.is_authenticated %}
+        <a href="{{ url_for('post_job') }}" class="btn btn-orange">Post a Job</a>
+    {% endif %}
+</div>
+
+<!-- Chhota text showing active filter/search (optional info) -->
+{% if selected_category or search_query %}
+    <p class="text-muted" style="margin-bottom:12px;">
+        {% if selected_category %}
+            Filtering by <b>{{ selected_category|capitalize }}</b>
+        {% endif %}
+        {% if search_query %}
+            {% if selected_category %} &middot; {% endif %}
+            Search: <b>{{ search_query }}</b>
+        {% endif %}
+    </p>
+{% endif %}
+
+{% if jobs %}
+    {% for job in jobs %}
+        <div class="job-card">
+            <div class="job-title">
+                {{ job.title }}
+                {% if job.category %}
+                    <span class="category-chip">{{ job.category|capitalize }}</span>
+                {% endif %}
+            </div>
+
+            <div class="job-meta">
+                <b>Company:</b> {{ job.company }}<br>
+                <b>Location:</b> {{ job.location }}
+            </div>
+
+            <p style="margin-top:10px;">{{ job.description }}</p>
+
+            <div style="margin-top:12px; display:flex; gap:10px; align-items:center;">
+                <a href="{{ url_for('job_detail', job_id=job.id) }}" class="btn btn-orange">
+                    View Details
+                </a>
+
+                {% if job.latitude and job.longitude %}
+                    <a href="https://www.google.com/maps/dir/?api=1&destination={{ job.latitude }},{{ job.longitude }}"
+                       class="btn btn-outline" target="_blank">
+                        🧭 Directions
+                    </a>
+                {% else %}
+                    <span class="text-muted">No map data</span>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p class="text-muted">No jobs found for this filter/search.</p>
+{% endif %}
+
+<!-- Floating Filter/Search Button (bottom-right) -->
+<button id="filterFab" class="filter-fab">
+    🔍 Filter
+</button>
+
+<!-- Dark overlay behind bottom sheet -->
+<div id="filterOverlay" class="filter-overlay"></div>
+
+<!-- Bottom Sheet for Category + Search -->
+<div id="filterSheet" class="filter-sheet">
+
+    <div class="filter-sheet-handle"></div>
+
+    <div class="filter-sheet-header">
+        <span>Search & Filter Jobs</span>
+        <button id="filterCloseBtn" class="filter-close-btn">✕</button>
+    </div>
+
+    <!-- Search Bar -->
+    <form method="get" action="{{ url_for('jobs_list') }}" style="margin-top:8px;">
+        {% if selected_category %}
+            <input type="hidden" name="category" value="{{ selected_category }}">
+        {% endif %}
+        <input
+            type="text"
+            name="q"
+            placeholder="Search jobs (e.g. tuition, cafe, mall)..."
+            value="{{ search_query or '' }}"
+            class="filter-search-input"
+        >
+    </form>
+
+    <!-- Quick Category Chips -->
+    <div class="filter-chip-row">
+        <a href="{{ url_for('jobs_list') }}"
+           class="filter-chip {% if not selected_category %}active{% endif %}">
+            All
+        </a>
+        <a href="{{ url_for('jobs_list', category='tuition') }}"
+           class="filter-chip {% if selected_category == 'tuition' %}active{% endif %}">
+            Tuition
+        </a>
+        <a href="{{ url_for('jobs_list', category='cafe') }}"
+           class="filter-chip {% if selected_category == 'cafe' %}active{% endif %}">
+            Cafe
+        </a>
+        <a href="{{ url_for('jobs_list', category='mall') }}"
+           class="filter-chip {% if selected_category == 'mall' %}active{% endif %}">
+            Mall
+        </a>
+        <a href="{{ url_for('jobs_list', category='operator') }}"
+           class="filter-chip {% if selected_category == 'operator' %}active{% endif %}">
+            Operator
+        </a>
+        <a href="{{ url_for('jobs_list', category='other') }}"
+           class="filter-chip {% if selected_category == 'other' %}active{% endif %}">
+            Other
+        </a>
+    </div>
+
+    <p class="text-muted" style="margin-top:10px; font-size:12px;">
+        Tip: You can use both search + category together.<br>
+        e.g. Category = Tuition & Search = Morning
+    </p>
+</div>
+
+<!-- JS for bottom sheet / overlay / button -->
+<script>
+    const fab = document.getElementById("filterFab");
+    const overlay = document.getElementById("filterOverlay");
+    const sheet = document.getElementById("filterSheet");
+    const closeBtn = document.getElementById("filterCloseBtn");
+
+    function openSheet() {
+        overlay.style.display = "block";
+        sheet.classList.add("open");
+    }
+
+    function closeSheet() {
+        overlay.style.display = "none";
+        sheet.classList.remove("open");
+    }
+
+    fab.addEventListener("click", openSheet);
+    overlay.addEventListener("click", closeSheet);
+    closeBtn.addEventListener("click", closeSheet);
+</script>
+
+{% endblock %}
+
+

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero">
+    <div class="hero-title">Welcome to Partify</div>
+    <div class="hero-sub">
+        Find part-time and flexible jobs like tuition, cafe, mall, and operator roles – built for students and hustlers.
+    </div>
+</div>
+
+<h3>Latest Jobs</h3>
+
+{% if jobs %}
+    {% for job in jobs %}
+        <div class="job-card">
+            <div class="job-title">
+                {{ job.title }}
+                {% if job.category %}
+                    <span class="category-chip">{{ job.category|capitalize }}</span>
+                {% endif %}
+            </div>
+            <div class="job-meta">
+                {{ job.company }} · {{ job.location }}
+            </div>
+            <p style="margin-top:10px;">{{ job.description[:140] }}...</p>
+            <a href="{{ url_for('job_detail', job_id=job.id) }}" class="btn btn-orange">View Details</a>
+        </div>
+    {% endfor %}
+{% else %}
+    <p class="text-muted">No jobs posted yet.</p>
+{% endif %}
+{% endblock %}
+
+
+
+

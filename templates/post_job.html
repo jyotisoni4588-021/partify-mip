@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Post a Job</h2>
+
+<div class="form-card">
+    <form method="post">
+        <label>Job Title</label>
+        <input type="text" name="title" required>
+
+        <label>Company / Place</label>
+        <input type="text" name="company" required>
+
+        <label>Location (e.g. Napier Town, Jabalpur)</label>
+        <input type="text" name="location" required>
+
+        <label>Job Category</label>
+        <select name="category" required>
+            <option value="">Select Category</option>
+            <option value="tuition">Tuition Job</option>
+            <option value="cafe">Cafe Job</option>
+            <option value="mall">Mall Job</option>
+            <option value="operator">Operator Job</option>
+            <option value="other">Other</option>
+        </select>
+
+        <label>Description</label>
+        <textarea name="description" required></textarea>
+
+        <label>Contact (phone / email)</label>
+        <input type="text" name="contact" required>
+
+        <button type="submit" class="btn btn-orange">Post Job</button>
+    </form>
+</div>
+{% endblock %}
+

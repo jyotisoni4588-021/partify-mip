@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 style="color:#38bdf8;">My Profile</h2>
+
+<div style="background:#0f172a; padding:20px; border-radius:12px; margin-top:20px;
+            border:1px solid rgba(255,255,255,0.08); max-width:500px;">
+
+    <p><b>Name:</b> {{ current_user.name }}</p>
+    <p><b>Email:</b> {{ current_user.email }}</p>
+
+    <p style="margin-top:10px;">
+        <b>Total Jobs Posted:</b> {{ jobs_count }}
+    </p>
+
+</div>
+
+{% endblock %}
+

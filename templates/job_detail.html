@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>{{ job.title }}</h2>
+
+<p class="job-meta">
+    {% if job.category %}
+        <span class="category-chip">{{ job.category|capitalize }}</span><br>
+    {% endif %}
+    <b>Company:</b> {{ job.company }}<br>
+    <b>Location:</b> {{ job.location }}
+</p>
+
+<p style="margin-top:10px;white-space:pre-wrap;">{{ job.description }}</p>
+
+<p style="margin-top:10px;">
+    <b>Contact:</b> {{ job.contact }}
+</p>
+
+<div style="margin-top:16px; display:flex; gap:12px; align-items:center;">
+
+    {% if job.latitude and job.longitude %}
+        <a 
+           href="https://www.google.com/maps/dir/?api=1&destination={{ job.latitude }},{{ job.longitude }}"
+           class="btn btn-orange"
+           target="_blank">
+            🧭 Open in Google Maps
+        </a>
+    {% else %}
+        <span class="text-muted">Location not mapped yet.</span>
+    {% endif %}
+
+    <a href="{{ url_for('jobs_list') }}" class="btn btn-outline">
+        Back to Jobs
+    </a>
+
+</div>
+
+{% endblock %}
+
+
+
+

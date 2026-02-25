@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Partify</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-left">
+        <a href="{{ url_for('index') }}" class="nav-logo">Partify</a>
+    </div>
+    <div class="nav-right nav-links">
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('jobs_list') }}">Browse Jobs</a>
+
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('my_jobs') }}">My Jobs</a>
+            <span class="nav-user">Hi, {{ current_user.name }}</span>
+            <a href="{{ url_for('logout') }}" class="btn-primary">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('signup') }}" class="btn-primary">Signup</a>
+        {% endif %}
+    </div>
+</nav>
+
+<div class="page-container">
+    <div class="flash-area">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for cat, msg in messages %}
+                    <div class="flash flash-{{ cat }}">{{ msg }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>

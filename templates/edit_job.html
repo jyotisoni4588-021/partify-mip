@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Edit Job</h2>
+
+<div class="form-card">
+    <form method="post">
+        <label>Job Title</label>
+        <input type="text" name="title" value="{{ job.title }}" required>
+
+        <label>Company / Place</label>
+        <input type="text" name="company" value="{{ job.company }}" required>
+
+        <label>Location</label>
+        <input type="text" name="location" value="{{ job.location }}" required>
+
+        <label>Job Category</label>
+        <select name="category" required>
+            <option value="">Select Category</option>
+            <option value="tuition" {% if job.category == 'tuition' %}selected{% endif %}>Tuition Job</option>
+            <option value="cafe" {% if job.category == 'cafe' %}selected{% endif %}>Cafe Job</option>
+            <option value="mall" {% if job.category == 'mall' %}selected{% endif %}>Mall Job</option>
+            <option value="operator" {% if job.category == 'operator' %}selected{% endif %}>Operator Job</option>
+            <option value="other" {% if job.category == 'other' %}selected{% endif %}>Other</option>
+        </select>
+
+        <label>Description</label>
+        <textarea name="description" required>{{ job.description }}</textarea>
+
+        <label>Contact</label>
+        <input type="text" name="contact" value="{{ job.contact }}" required>
+
+        <button type="submit" class="btn btn-orange">Save Changes</button>
+    </form>
+</div>
+{% endblock %}
+

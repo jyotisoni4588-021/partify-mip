@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>My Jobs</h2>
+
+{% if jobs %}
+    {% for job in jobs %}
+        <div class="job-card">
+            <div class="job-title">
+                {{ job.title }}
+                {% if job.category %}
+                    <span class="category-chip">{{ job.category|capitalize }}</span>
+                {% endif %}
+            </div>
+            <div class="job-meta">
+                {{ job.company }} · {{ job.location }}
+            </div>
+            <p style="margin-top:10px;">{{ job.description }}</p>
+            <div style="margin-top:12px; display:flex; gap:10px; align-items:center;">
+                <a href="{{ url_for('edit_job', job_id=job.id) }}" class="btn btn-outline">Edit</a>
+                <a href="{{ url_for('delete_job', job_id=job.id) }}" class="btn btn-outline"
+                   onclick="return confirm('Delete this job?');">Delete</a>
+
+                {% if job.latitude and job.longitude %}
+                    <a href="https://www.google.com/maps/dir/?api=1&destination={{ job.latitude }},{{ job.longitude }}"
+                       class="btn btn-outline" target="_blank">
+                        Get Directions
+                    </a>
+                {% else %}
+                    <span class="text-muted">Location not found</span>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p class="text-muted">You haven't posted any jobs yet.</p>
+{% endif %}
+{% endblock %}
+
+
+

@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 style="margin-bottom:20px;">Map View</h2>
+
+<button id="locateMeBtn"
+    style="
+        position:absolute;
+        right:20px;
+        top:20px;
+        z-index:1000;
+        padding:10px 15px;
+        background:#ff7f11;
+        border:none;
+        border-radius:8px;
+        color:white;
+        cursor:pointer;
+        font-weight:600;">
+    📍 My Location
+</button>
+
+<div id="map"></div>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
+<script>
+    var jobs = {{ jobs|tojson }};
+    var mapLatitude = {{ lat|default("null") }};
+    var mapLongitude = {{ lng|default("null") }};
+    var mapTitle = {{ job_title|default("null")|tojson }};
+
+    var map = L.map('map').setView([22.97, 78.65], 5);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+    }).addTo(map);
+
+    if (mapLatitude !== null && mapLongitude !== null) {
+        map.setView([mapLatitude, mapLongitude], 15);
+        L.marker([mapLatitude, mapLongitude]).addTo(map)
+            .bindPopup(`<b>${mapTitle}</b>`);
+    }
+
+    let bounds = [];
+    jobs.forEach(job => {
+        if (job.latitude && job.longitude) {
+            var marker = L.marker([job.latitude, job.longitude]).addTo(map);
+
+            marker.bindPopup(`
+                <b>${job.title}</b><br>
+                ${job.company}<br>
+                ${job.location}<br>
+                <a href="/job/${job.id}" style="color:blue;">View Details</a>
+            `);
+
+            bounds.push([job.latitude, job.longitude]);
+        }
+    });
+
+    if (mapLatitude === null && bounds.length > 0) {
+        map.fitBounds(bounds, { padding: [40, 40] });
+    }
+
+    document.getElementById("locateMeBtn").onclick = function () {
+        navigator.geolocation.getCurrentPosition(pos => {
+            const lat = pos.coords.latitude;
+            const lng = pos.coords.longitude;
+
+            map.setView([lat, lng], 14);
+
+            L.marker([lat, lng]).addTo(map)
+                .bindPopup("📍 You are here!")
+                .openPopup();
+        }, () => {
+            alert("Location access denied.");
+        });
+    };
+</script>
+{% endblock %}
+
