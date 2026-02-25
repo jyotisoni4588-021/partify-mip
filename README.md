@@ -41,23 +41,22 @@ Open in browser:
 http://127.0.0.1:5000
 
 ---
-
 ## Screenshots
 
 Home Page  
-![Home Page](screenshots/home.png)
+![Home Page](./screenshots/home.png)
 
 Browse Jobs  
-![Browse Jobs](screenshots/browse_jobs.png)
+![Browse Jobs](./screenshots/browse_jobs.png)
 
 Job Details  
-![Job Details](screenshots/job_details.png)
+![Job Details](./screenshots/job_details.png)
 
 Post Job  
-![Post Job](screenshots/post_job.png)
+![Post Job](./screenshots/post_job.png)
 
 Login Page  
-![Login Page](screenshots/login.png)
+![Login Page](./screenshots/login.png)
 
 
 
